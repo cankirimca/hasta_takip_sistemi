@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ public class Hasta {
     private ArrayList<Integer> nabiz;
     private ArrayList<Integer> buyukTansiyon;
     private ArrayList<Integer> kucukTansiyon;
-    private ArrayList<Integer> ates;
+    private ArrayList<Double> ates;
 
     public Hasta(String ad, String soyad, int yas, Cinsiyet cinsiyet, Date yatmaTarihi)
     {
@@ -25,6 +26,10 @@ public class Hasta {
         this.yas = yas;
         this.cinsiyet = cinsiyet;
         this.yatmaTarihi = yatmaTarihi;
+        this.ates = new ArrayList<Double>();
+        this.nabiz = new ArrayList<Integer>();
+        this.buyukTansiyon = new ArrayList<Integer>();
+        this.kucukTansiyon = new ArrayList<Integer>();
     }
 
     public String getSoyad() {
@@ -39,7 +44,7 @@ public class Hasta {
         return yas;
     }
 
-    public ArrayList<Integer> getAtes() {
+    public ArrayList<Double> getAtes() {
         return ates;
     }
 
@@ -67,7 +72,7 @@ public class Hasta {
         this.ad = ad;
     }
 
-    public void setAtes(ArrayList<Integer> ates) {
+    public void setAtes(ArrayList<Double> ates) {
         this.ates = ates;
     }
 
@@ -99,8 +104,16 @@ public class Hasta {
         this.yatmaTarihi = yatmaTarihi;
     }
 
-    public static void main(String[] args) {
+    public String toString(){
+        return ad + ", " + soyad + ", " + yas + ",  " + cinsiyet + ", " + yatmaTarihi;
+    }
 
+    public static void main(String[] args) {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
+        Date date = new Date(1978,0,15);
+        System.out.println(df.format(date));
+        //Hasta hasta1 = new Hasta("Ahmet", "Sütçüoğlu", 44, Cinsiyet.ERKEK, new Date(2020,11,12));
+        //System.out.println(hasta1.getYatmaTarihi());
     }
 }
 
