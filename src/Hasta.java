@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,25 +12,47 @@ public class Hasta {
 
     private String ad;
     private String soyad;
+    private String doktor;
+    private String servis;
     private int yas;
+    private int protokolNo;
     private Cinsiyet cinsiyet;
     private Date yatmaTarihi;
     private ArrayList<Integer> nabiz;
     private ArrayList<Integer> buyukTansiyon;
     private ArrayList<Integer> kucukTansiyon;
-    private ArrayList<Integer> ates;
+    private ArrayList<Double> ates;
 
-    public Hasta(String ad, String soyad, int yas, Cinsiyet cinsiyet, Date yatmaTarihi)
+    public Hasta(String ad, String soyad, int yas, Cinsiyet cinsiyet, Date yatmaTarihi, int protokolNo, String doktor, String servis)
     {
         this.ad = ad;
         this.soyad = soyad;
         this.yas = yas;
         this.cinsiyet = cinsiyet;
         this.yatmaTarihi = yatmaTarihi;
+        this.ates = new ArrayList<Double>();
+        this.nabiz = new ArrayList<Integer>();
+        this.buyukTansiyon = new ArrayList<Integer>();
+        this.kucukTansiyon = new ArrayList<Integer>();
+        this.doktor = doktor;
+        this.servis = servis;
+        this.protokolNo = protokolNo;
     }
 
     public String getSoyad() {
         return soyad;
+    }
+
+    public int getProtokolNo() {
+        return protokolNo;
+    }
+
+    public String getDoktor() {
+        return doktor;
+    }
+
+    public String getServis() {
+        return servis;
     }
 
     public String getAd() {
@@ -39,7 +63,7 @@ public class Hasta {
         return yas;
     }
 
-    public ArrayList<Integer> getAtes() {
+    public ArrayList<Double> getAtes() {
         return ates;
     }
 
@@ -67,7 +91,7 @@ public class Hasta {
         this.ad = ad;
     }
 
-    public void setAtes(ArrayList<Integer> ates) {
+    public void setAtes(ArrayList<Double> ates) {
         this.ates = ates;
     }
 
@@ -99,8 +123,32 @@ public class Hasta {
         this.yatmaTarihi = yatmaTarihi;
     }
 
-    public static void main(String[] args) {
+    public void setDoktor(String doktor) {
+        this.doktor = doktor;
+    }
 
+    public void setProtokolNo(int protokolNo) {
+        this.protokolNo = protokolNo;
+    }
+
+    public void setServis(String servis) {
+        this.servis = servis;
+    }
+
+    public String toString(){
+        return ad + ", " + soyad + ", " + yas + ",  " + cinsiyet + ", " + yatmaTarihi;
+    }
+
+    public static void main(String[] args) {
+        //SimpleDateFormat df = new SimpleDateFormat("dd/MM/YYYY");
+        //Date date = new Date(1978,0,15);
+        //System.out.println(df.format(date));
+        //Hasta hasta1 = new Hasta("Ahmet", "Sütçüoğlu", 44, Cinsiyet.ERKEK, new Date(2020,11,12));
+        //System.out.println(hasta1.getYatmaTarihi());
+        LocalDate d = LocalDate.now();
+        Date e = new Date();
+        System.out.println(e);
     }
 }
+
 
