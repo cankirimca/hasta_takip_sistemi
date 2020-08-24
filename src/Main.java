@@ -28,40 +28,16 @@ public class Main extends JFrame{
         public void valueChanged(ListSelectionEvent e) {
             int satir = tablo.getSelectedRow();
             Hasta gosterilecekHasta =ht.hastalar.get(satir);
+            HastaEkrani he = new HastaEkrani(gosterilecekHasta);
             System.out.println(tablo.getSelectedRow());
 
-            JPanel hastaEkrani = new JPanel();
-            hastaEkrani.setLayout(new BorderLayout());
-            JPanel hastaBilgileri = new JPanel();
-            hastaBilgileri.setLayout(new GridLayout(1,4));
 
-            JLabel adLabel = new JLabel("Ad: " + gosterilecekHasta.getAd());
-            adLabel.setBackground(Color.LIGHT_GRAY);
-            adLabel.setOpaque(true);
-            hastaBilgileri.add(adLabel);
-
-            JLabel soyadLabel = new JLabel("Soyad: " + gosterilecekHasta.getSoyad());
-            soyadLabel.setBackground(Color.LIGHT_GRAY);
-            soyadLabel.setOpaque(true);
-            hastaBilgileri.add(soyadLabel);
-
-            JLabel yasLabel = new JLabel("Yaş: " + gosterilecekHasta.getYas());
-            yasLabel.setBackground(Color.LIGHT_GRAY);
-            yasLabel.setOpaque(true);
-            hastaBilgileri.add(yasLabel);
-
-            JLabel cinsiyetLabel = new JLabel("Cinsiyet: " + gosterilecekHasta.getCinsiyet());
-            cinsiyetLabel.setBackground(Color.LIGHT_GRAY);
-            cinsiyetLabel.setOpaque(true);
-            hastaBilgileri.add(cinsiyetLabel);
-            hastaBilgileri.setBorder(BorderFactory.createLineBorder(Color.black));
-            hastaEkrani.add(hastaBilgileri, BorderLayout.PAGE_START);
 
             frame.setVisible(false);
             frame = new JFrame("Hasta Takip");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(700,400);
-            frame.getContentPane().add(hastaEkrani);
+            frame.setSize(1000,600);
+            frame.getContentPane().add(he.getPanel());
             frame.setVisible(true);
 
         }
@@ -70,7 +46,7 @@ public class Main extends JFrame{
     static public void hastaEkle() {
 
         JDialog hastaEklemeEkrani = new JDialog(frame, "Hasta Ekle", true);
-        hastaEklemeEkrani.setSize(400, 500);
+        hastaEklemeEkrani.setSize(1000, 600);
         hastaEklemeEkrani.add(new JLabel("Lütfen eklemek istediğiniz hastanın bilgilerini giriniz\n"));
         hastaEklemeEkrani.setLayout(new GridLayout(19,2));
         JTextField adYeri = new JTextField();
@@ -80,8 +56,8 @@ public class Main extends JFrame{
         JTextField protokolNoYeri = new JTextField();
         JTextField doktorYeri = new JTextField();
         JTextField servisYeri = new JTextField();
-        kadin = new JRadioButton("Kadın:");
-        erkek = new JRadioButton("Erkek:");
+        kadin = new JRadioButton("Kadın");
+        erkek = new JRadioButton("Erkek");
         hastaEklemeEkrani.add(new JLabel("Ad: "));
         hastaEklemeEkrani.add(adYeri);
         hastaEklemeEkrani.add(new JLabel("Soyad: "));
@@ -179,7 +155,7 @@ public class Main extends JFrame{
         ht = new HastaTablosu();
         frame = new JFrame("Hasta Takip");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700,400);
+        frame.setSize(1000,600);
 
         buttonPanel = new JPanel();
         hastaEkle = new JButton("Hasta Ekle");

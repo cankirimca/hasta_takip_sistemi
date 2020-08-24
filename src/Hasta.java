@@ -1,5 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -147,7 +149,9 @@ public class Hasta {
         //System.out.println(hasta1.getYatmaTarihi());
         LocalDate d = LocalDate.now();
         Date e = new Date();
-        System.out.println(e);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        System.out.println(dtf.format(LocalDateTime.now()));
+        //System.out.println(e);
     }
 }
 
