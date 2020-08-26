@@ -34,6 +34,7 @@ public class HastaEkrani implements MouseListener {
     JPanel hastaEkrani;
     Hasta gosterilecekHasta;
     JTextField degerGirmeYeri, degerGirmeYeri2;
+    JButton geriButonu, hastaSilmeButonu, olcumEklemeButonu;
 
 
     //tablo ve grafikler için ölçülecek değerlerin depolandığı listeler
@@ -66,7 +67,7 @@ public class HastaEkrani implements MouseListener {
     ArrayList<java.sql.Date> osTarih;
     ArrayList<String> osSaat;
 
-    public HastaEkrani(Hasta h) {
+    public HastaEkrani(Hasta h, JButton geri, JButton olcum, JButton sil) {
 
         nDeger = new ArrayList<Integer>();
         nTarih = new ArrayList<java.sql.Date>();
@@ -96,7 +97,9 @@ public class HastaEkrani implements MouseListener {
         osTarih = new ArrayList<java.sql.Date>();
         osSaat = new ArrayList<String>();
 
-
+        geriButonu = geri;
+        hastaSilmeButonu = sil;
+        olcumEklemeButonu = olcum;
 
         gosterilecekHasta = h;
         hastaEkrani = new JPanel();
@@ -143,7 +146,15 @@ public class HastaEkrani implements MouseListener {
 
         hastaEkrani.add(hastaBilgileri, BorderLayout.NORTH);
         hastaEkrani.add(new JScrollPane(degerTablosuOlustur()), BorderLayout.CENTER);
-        grafikPaneli.add(olcumEklemeButonuOlustur(), 7);
+        JPanel butonPaneli = new JPanel();
+        butonPaneli.setLayout(new BorderLayout());
+
+        butonPaneli.add(olcumEklemeButonu, BorderLayout.CENTER);
+        butonPaneli.add(hastaSilmeButonu, BorderLayout.NORTH);
+        butonPaneli.add(geriButonu, BorderLayout.SOUTH);
+        grafikPaneli.add(butonPaneli, 7);
+
+
 
     }
 
@@ -783,6 +794,36 @@ public class HastaEkrani implements MouseListener {
         return ekle;
     }
 
+
+    public JButton hastaSilmeButonuOlustur(){
+        JButton sil = new JButton("Hasta Kaydını Sil");
+
+        sil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
+                    Class.forName("oracle.jdbc.driver.OracleDriver");
+                    String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
+                    Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
+                    Statement st = con.createStatement();
+                    String sqlStr = "delete from Hastalar where protokol_no = " + gosterilecekHasta.getProtokolNo();
+                    System.out.println(sqlStr);
+                    ResultSet rs = st.executeQuery(sqlStr);
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                }
+        }});
+
+
+
+
+
+
+        return sil;
+    }
+
     public HastaGrafigi grafikOlustur(int grafikTuru, int w, int h){
         HastaGrafigi hg = null;
         switch (grafikTuru){
@@ -827,4 +868,5 @@ public class HastaEkrani implements MouseListener {
     public void mouseReleased(MouseEvent e) {
 
     }
+
 }
