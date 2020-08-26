@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,11 +14,22 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.time.ZoneId;
 
 
-public class HastaEkrani {
+public class HastaEkrani implements MouseListener {
 
     JPanel hastaEkrani;
     Hasta gosterilecekHasta;
@@ -26,61 +39,61 @@ public class HastaEkrani {
     //tablo ve grafikler için ölçülecek değerlerin depolandığı listeler
     //nabız için
     ArrayList<Integer> nDeger;
-    ArrayList<Date> nTarih;
+    ArrayList<java.sql.Date> nTarih;
     ArrayList<String> nSaat;
     //sistolik tansiyon için
     ArrayList<Integer> stDeger;
-    ArrayList<Date> stTarih;
+    ArrayList<java.sql.Date> stTarih;
     ArrayList<String> stSaat;
     //diastolik tansiyon için
     ArrayList<Integer> dtDeger;
-    ArrayList<Date> dtTarih;
+    ArrayList<java.sql.Date> dtTarih;
     ArrayList<String> dtSaat;
     //solunum için
     ArrayList<Integer> sDeger;
-    ArrayList<Date> sTarih;
+    ArrayList<java.sql.Date> sTarih;
     ArrayList<String> sSaat;
     //ateş için
     ArrayList<Integer> aDeger;
-    ArrayList<Date> aTarih;
+    ArrayList<java.sql.Date> aTarih;
     ArrayList<String> aSaat;
     //kan şekeri için
     ArrayList<Integer> ksDeger;
-    ArrayList<Date> ksTarih;
+    ArrayList<java.sql.Date> ksTarih;
     ArrayList<String> ksSaat;
     //oksijen satürasyonu için
     ArrayList<Integer> osDeger;
-    ArrayList<Date> osTarih;
+    ArrayList<java.sql.Date> osTarih;
     ArrayList<String> osSaat;
 
     public HastaEkrani(Hasta h) {
 
         nDeger = new ArrayList<Integer>();
-        nTarih = new ArrayList<Date>();
+        nTarih = new ArrayList<java.sql.Date>();
         nSaat = new ArrayList<String>();
 
         stDeger = new ArrayList<Integer>();
-        stTarih = new ArrayList<Date>();
+        stTarih = new ArrayList<java.sql.Date>();
         stSaat = new ArrayList<String>();
 
         dtDeger = new ArrayList<Integer>();
-        dtTarih = new ArrayList<Date>();
+        dtTarih = new ArrayList<java.sql.Date>();
         dtSaat = new ArrayList<String>();
 
         sDeger = new ArrayList<Integer>();
-        sTarih = new ArrayList<Date>();
+        sTarih = new ArrayList<java.sql.Date>();
         sSaat = new ArrayList<String>();
 
         aDeger = new ArrayList<Integer>();
-        aTarih = new ArrayList<Date>();
+        aTarih = new ArrayList<java.sql.Date>();
         aSaat = new ArrayList<String>();
 
         ksDeger = new ArrayList<Integer>();
-        ksTarih = new ArrayList<Date>();
+        ksTarih = new ArrayList<java.sql.Date>();
         ksSaat = new ArrayList<String>();
 
         osDeger = new ArrayList<Integer>();
-        osTarih = new ArrayList<Date>();
+        osTarih = new ArrayList<java.sql.Date>();
         osSaat = new ArrayList<String>();
 
 
@@ -112,9 +125,25 @@ public class HastaEkrani {
         cinsiyetLabel.setOpaque(true);
         hastaBilgileri.add(cinsiyetLabel);
         hastaBilgileri.setBorder(BorderFactory.createLineBorder(Color.black));
-        hastaEkrani.add(hastaBilgileri, BorderLayout.PAGE_START);
+
+        JPanel grafikPaneli = new JPanel();
+        grafikPaneli.setLayout(new GridLayout(4,2));
+
+        for(int p = 0; p < 7; p++)
+        {
+            HastaGrafigi hg = grafikOlustur(p, 300, 100);
+
+            hg.addMouseListener(this);
+            grafikPaneli.add(hg, p);
+        }
+        hastaEkrani.add(grafikPaneli, BorderLayout.SOUTH);
+
+
+
+
+        hastaEkrani.add(hastaBilgileri, BorderLayout.NORTH);
         hastaEkrani.add(new JScrollPane(degerTablosuOlustur()), BorderLayout.CENTER);
-        hastaEkrani.add(olcumEklemeButonuOlustur(), BorderLayout.PAGE_END);
+        grafikPaneli.add(olcumEklemeButonuOlustur(), 7);
 
     }
 
@@ -255,7 +284,7 @@ public class HastaEkrani {
         anaTablo[0][0] = "Solunum (br/min)";
         anaTablo[0][1] = sonSolunum + "";
         try {
-            anaTablo[0][2] = getInterval(((java.sql.Date) sTarih.get(sTarih.size() - 1)).toLocalDate());
+            anaTablo[0][2] = getInterval(( sTarih.get(sTarih.size() - 1)).toLocalDate());
         }catch (Exception e){anaTablo[0][2] = "Veri bulunamadı!";}
 
         anaTablo[0][3] = maxMinTablosu[0][0];
@@ -266,7 +295,7 @@ public class HastaEkrani {
         anaTablo[1][0] = "Ateş (C°)";
         anaTablo[1][1] = sonAtes + "";
         try{
-        anaTablo[1][2] = getInterval(((java.sql.Date) aTarih.get(aTarih.size()-1)).toLocalDate());
+        anaTablo[1][2] = getInterval(( aTarih.get(aTarih.size()-1)).toLocalDate());
         }catch (Exception e){anaTablo[1][2] = "Veri bulunamadı!";}
         anaTablo[1][3] = maxMinTablosu[1][0];
         anaTablo[1][4] = maxMinTablosu[1][1];
@@ -279,7 +308,7 @@ public class HastaEkrani {
         else
             anaTablo[2][1] = sonSTansiyon + "-" + sonDTansiyon;
         try{
-        anaTablo[2][2] = getInterval(((java.sql.Date) stTarih.get(stTarih.size()-1)).toLocalDate());
+        anaTablo[2][2] = getInterval(( stTarih.get(stTarih.size()-1)).toLocalDate());
         }catch (Exception e){anaTablo[2][2] = "Veri bulunamadı!";}
 
         anaTablo[2][3] = maxMinTablosu[2][0];
@@ -290,7 +319,7 @@ public class HastaEkrani {
         anaTablo[3][0] = "Nabız (bpm)";
         anaTablo[3][1] = sonNabiz + "";
         try{
-        anaTablo[3][2] = getInterval(((java.sql.Date) nTarih.get(nTarih.size()-1)).toLocalDate());
+        anaTablo[3][2] = getInterval((nTarih.get(nTarih.size()-1)).toLocalDate());
         }catch (Exception e){anaTablo[3][2] = "Veri bulunamadı!";}
         anaTablo[3][3] = maxMinTablosu[3][0];
         anaTablo[3][4] = maxMinTablosu[3][1];
@@ -300,7 +329,7 @@ public class HastaEkrani {
         anaTablo[4][0] = "Kan Şekeri (mg/dL)";
         anaTablo[4][1] = sonKanSekeri + "";
         try{
-        anaTablo[4][2] = getInterval(((java.sql.Date) ksTarih.get(ksTarih.size()-1)).toLocalDate());
+        anaTablo[4][2] = getInterval(( ksTarih.get(ksTarih.size()-1)).toLocalDate());
         }catch (Exception e){anaTablo[4][2] = "Veri bulunamadı!";}
         anaTablo[4][3] = maxMinTablosu[4][0];
         anaTablo[4][4] = maxMinTablosu[4][1];
@@ -310,7 +339,7 @@ public class HastaEkrani {
         anaTablo[5][0] = "Oksijen Satürasyon Takibi (%)";
         anaTablo[5][1] = sonOksSat + "";
         try{
-        anaTablo[5][2] = getInterval(((java.sql.Date) osTarih.get(osTarih.size()-1)).toLocalDate());
+        anaTablo[5][2] = getInterval((osTarih.get(osTarih.size()-1)).toLocalDate());
         }catch (Exception e){anaTablo[5][2] = "Veri bulunamadı!";}
         anaTablo[5][3] = maxMinTablosu[5][0];
         anaTablo[5][4] = maxMinTablosu[5][1];
@@ -752,5 +781,50 @@ public class HastaEkrani {
             }
         });
         return ekle;
+    }
+
+    public HastaGrafigi grafikOlustur(int grafikTuru, int w, int h){
+        HastaGrafigi hg = null;
+        switch (grafikTuru){
+            case 0: hg = new HastaGrafigi(nDeger, nTarih, grafikTuru, w, h, nSaat); break;
+            case 1: hg = new HastaGrafigi(stDeger, stTarih, grafikTuru, w, h, stSaat); break;
+            case 2: hg = new HastaGrafigi(dtDeger, dtTarih, grafikTuru, w, h, dtSaat); break;
+            case 3: hg = new HastaGrafigi(aDeger, aTarih, grafikTuru, w, h, aSaat); break;
+            case 4: hg = new HastaGrafigi(sDeger, sTarih, grafikTuru, w, h, sSaat); break;
+            case 5: hg = new HastaGrafigi(ksDeger, ksTarih, grafikTuru, w, h, ksSaat); break;
+            case 6: hg = new HastaGrafigi(osDeger, osTarih, grafikTuru, w, h, osSaat); break;
+        }
+        return hg;
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        JFrame grafik = new JFrame("Grafik");
+        JPanel grafikPanel = new JPanel();
+        ((HastaGrafigi)(e.getSource())).getGraphKind();
+        HastaGrafigi hg = grafikOlustur(((HastaGrafigi)(e.getSource())).getGraphKind(), 900, 500);
+        grafikPanel.add(hg);
+        grafik.getContentPane().add(grafikPanel);
+        grafik.setSize(1000, 600);
+        grafik.setVisible(true);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
     }
 }

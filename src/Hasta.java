@@ -149,7 +149,7 @@ public class Hasta {
         //System.out.println(hasta1.getYatmaTarihi());
         LocalDate d = LocalDate.now();
         Date e = new Date();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM");
         System.out.println(dtf.format(LocalDateTime.now()));
         //System.out.println(e);
     }

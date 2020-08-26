@@ -149,6 +149,21 @@ public class Main extends JFrame{
 
     }
 
+    public void hastaSil(){
+         try {
+             //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
+             Class.forName("oracle.jdbc.driver.OracleDriver");
+             String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
+             Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
+             Statement st = con.createStatement();
+             String sqlStr = "insert into Hastalar values('" + isim + "', '" + soyisim + "', '" + dogumTarihi
+                     + "', " + cinsiyet + ", '" + yatmaTarihi + "', " + pr + ", '" + dr + "', '" + ser + "')";
+             System.out.println(sqlStr);
+             ResultSet rs = st.executeQuery(sqlStr);
+         }
+
+    }
+
     public static void main(String[] args) {
 
         System.out.println("bu bir programdır");
@@ -189,6 +204,7 @@ public class Main extends JFrame{
         anaEkran.add(new JScrollPane(tablo), BorderLayout.CENTER);
         anaEkran.add(buttonPanel, BorderLayout.PAGE_START);
         frame.getContentPane().add(anaEkran);
+
 
 
 
