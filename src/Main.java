@@ -13,32 +13,200 @@ import java.util.Scanner;
 import java.util.*;
 import java.time.*;
 
+
+
 public class Main extends JFrame{
 
-    static JButton hastaEkle, hastaSil, yardim;
+    static JButton hastaEkle, yardim;
     static JPanel anaEkran, hastaSilmeEkrani;
     static JFrame frame;
     static HastaTablosu ht;
     static JRadioButton kadin, erkek;
     static JPanel buttonPanel;
     static JTable tablo;
+    static HastaEkrani he;
+    static JTextField degerGirmeYeri2;
+
+
 
     static class HastaListesiListener implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            int satir = tablo.getSelectedRow();
-            Hasta gosterilecekHasta =ht.hastalar.get(satir);
-            HastaEkrani he = new HastaEkrani(gosterilecekHasta);
+
+            Hasta gosterilecekHasta =ht.hastalar.get(tablo.getSelectedRow());
+
+
+            JButton geriDonmeButonu = new JButton("Ana Tabloya Dön");
+            geriDonmeButonu.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //frame.setVisible(false);
+                    //frame = new JFrame("Hasta Takip");
+                    //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    //frame.setSize(1000,600);
+                    frame.getContentPane().removeAll();
+                    anaEkran = new JPanel();
+                    anaEkran.setLayout(new BorderLayout());
+                    tablo = ht.tabloOlustur();
+                    tablo.setCellSelectionEnabled(true);
+                    tablo.getSelectionModel().addListSelectionListener(new HastaListesiListener());
+                    anaEkran.add(new JScrollPane(tablo), BorderLayout.CENTER);
+                    anaEkran.add(buttonPanel, BorderLayout.PAGE_START);
+                    frame.getContentPane().add(anaEkran);
+                    frame.revalidate();
+                    frame.repaint();
+                    //frame.setVisible(true);
+                }
+            });
+
+            JButton hastaKaydiSil = new JButton("Hasta Kaydını Sil");
+
+            hastaKaydiSil.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
+                        Class.forName("oracle.jdbc.driver.OracleDriver");
+                        String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
+                        Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
+                        Statement st = con.createStatement();
+                        String sqlStr = "delete from Hastalar where protokol_no = " + he.gosterilecekHasta.getProtokolNo();
+                        System.out.println(sqlStr);
+                        ResultSet rs = st.executeQuery(sqlStr);
+
+                        frame.getContentPane().removeAll();
+                        anaEkran = new JPanel();
+                        anaEkran.setLayout(new BorderLayout());
+                        ht = new HastaTablosu();
+                        tablo = ht.tabloOlustur();
+                        tablo.setCellSelectionEnabled(true);
+                        tablo.getSelectionModel().addListSelectionListener(new HastaListesiListener());
+                        anaEkran.add(new JScrollPane(tablo), BorderLayout.CENTER);
+                        anaEkran.add(buttonPanel, BorderLayout.PAGE_START);
+                        frame.getContentPane().add(anaEkran);
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                    }
+                }});
+
+
+            JButton olcumEkle = new JButton("Yeni Ölçüm Kaydet");
+
+            olcumEkle.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JDialog ekle1= new JDialog();
+                    ekle1.setSize(300,120);
+                    ekle1.setLayout(new GridLayout(3,1));
+                    JLabel l = new JLabel("Eklemek istediğiniz verinin türünü giriniz.");
+                    ekle1.add(l, 0);
+
+                    String[] secenekler = {"Nabız", "Tansiyon", "Kan Şekeri",  "Ateş", "Oksijen Satürasyonu", "Solunum"};
+                    JComboBox degerTurleri = new JComboBox(secenekler);
+                    ekle1.add(degerTurleri, 1);
+                    JButton araButon = new JButton("Seç");
+
+                    araButon.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent ev) {
+                            int index = degerTurleri.getSelectedIndex();
+                            ekle1.setVisible(false);
+
+                            String defaultText = "";
+
+                            switch(index){
+                                case 0: defaultText = "Nabız (bpm)"; break;
+                                case 1: defaultText = "Sistolik Tansiyon (mmHg)"; break;
+                                case 2: defaultText = "Kan Şekeri (mg/dL)"; break;
+                                case 3: defaultText = "Ateş (°C)"; break;
+                                case 4: defaultText = "Oksijen Satürasyon (%)"; break;
+                                case 5: defaultText = "Solunum(br/min)"; break;
+                            }
+
+                            JDialog ekle2 = new JDialog();
+                            ekle2.setSize(300,150);
+                            if(index == 1)
+                                ekle2.setLayout(new GridLayout(4,1));
+                            else
+                                ekle2.setLayout(new GridLayout(3,1));
+                            JTextField degerGirmeYeri = new JTextField(defaultText);
+                            degerGirmeYeri2 = null;
+
+                            JLabel label2 = new JLabel("Ölçülen değeri giriniz.");
+                            ekle2.add(label2, 0);
+
+                            if(index == 1) {
+                                degerGirmeYeri2 = new JTextField("Diastolik Tansiyon (mmHg)");
+                                ekle2.add(degerGirmeYeri, 1);
+                                ekle2.add(degerGirmeYeri2, 2);
+                            }
+                            else
+                            {
+                                ekle2.add(degerGirmeYeri, 1);
+                            }
+
+
+
+                            ekle2.setSize(200,200);
+
+                            JButton ekle3 = new JButton("Ekle");
+                            ekle3.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    try{
+                                        if(index == 1) {
+                                            int deger = Integer.parseInt(degerGirmeYeri.getText());
+                                            he.olcumEkle(deger, 1);
+                                            deger = Integer.parseInt(degerGirmeYeri2.getText());
+                                            he.olcumEkle(deger, 6);
+                                        }
+                                        else {
+                                            int deger = Integer.parseInt(degerGirmeYeri.getText());
+                                            he.olcumEkle(deger, index);
+                                        }
+                                        ekle2.setVisible(false);
+
+                                        frame.getContentPane().removeAll();
+                                        he = new HastaEkrani(gosterilecekHasta, geriDonmeButonu, olcumEkle, hastaKaydiSil);
+                                        frame.getContentPane().add(he.getPanel());
+                                        frame.revalidate();
+                                        frame.repaint();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        JOptionPane.showMessageDialog(he.getPanel(), "Bir hata oluştu. Lütfen tekrar deneyiniz.");
+                                    }
+                                }
+                            });
+                            if (index == 1)
+                                ekle2.add(ekle3, 3);
+                            else
+                                ekle2.add(ekle3, 2);
+
+                            ekle2.setVisible(true);
+                        }
+                    });
+                    ekle1.add(araButon, 2);
+                    ekle1.setVisible(true);
+
+
+                }
+            });
+
+
+
+
+            he = new HastaEkrani(gosterilecekHasta, geriDonmeButonu, olcumEkle, hastaKaydiSil);
             System.out.println(tablo.getSelectedRow());
 
+            frame.getContentPane().removeAll();
 
-
-            frame.setVisible(false);
-            frame = new JFrame("Hasta Takip");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1000,600);
             frame.getContentPane().add(he.getPanel());
-            frame.setVisible(true);
+            frame.revalidate();
+            frame.repaint();
 
         }
     }
@@ -149,20 +317,7 @@ public class Main extends JFrame{
 
     }
 
-    public void hastaSil(){
-         try {
-             //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
-             Class.forName("oracle.jdbc.driver.OracleDriver");
-             String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
-             Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
-             Statement st = con.createStatement();
-             String sqlStr = "insert into Hastalar values('" + isim + "', '" + soyisim + "', '" + dogumTarihi
-                     + "', " + cinsiyet + ", '" + yatmaTarihi + "', " + pr + ", '" + dr + "', '" + ser + "')";
-             System.out.println(sqlStr);
-             ResultSet rs = st.executeQuery(sqlStr);
-         }
 
-    }
 
     public static void main(String[] args) {
 
