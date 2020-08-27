@@ -3,16 +3,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 import java.time.ZoneId;
-import java.util.EventListener;
-import java.util.Vector;
-
-
+import java.util.Date;
 
 
 public class HastaTablosu {
@@ -22,12 +20,14 @@ public class HastaTablosu {
     ArrayList<Hasta> hastalar;
     int hastaSayisi;
     JTable tablo;
+    String[] sList;
 
-    public HastaTablosu(){
+    public HastaTablosu(String[] servisListesi){
         //hasta yaşını hesaplamak için bugünün tarihine erişme
         LocalDate now = LocalDate.now(); //gets localDate
         hastaSayisi = 0;
         hastalar = new ArrayList<Hasta>();
+        sList = servisListesi;
 
         try{
             //veritabanı ile bağlantı sağlama
@@ -48,7 +48,7 @@ public class HastaTablosu {
                 Date yatmaTarihi = rs.getDate(5);
                 int protokolNo = rs.getInt(6);
                 String doktor = rs.getString(7);
-                String servis = rs.getString(8);
+                String servis = servisListesi[rs.getInt(8)];
                 Hasta.Cinsiyet cinsiyet;
 
                 //ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -105,8 +105,26 @@ public class HastaTablosu {
     }
 
     public static void main(String[] args) {
-        HastaTablosu ht = new HastaTablosu();
-        ht.tabloOlustur();
+        //HastaTablosu ht = new HastaTablosu();
+       // ht.tabloOlustur();
+
+        try {
+            //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
+            Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
+            Statement st = con.createStatement();
+            Scanner scan = new Scanner(System.in);
+
+            int i = 7;
+            while(true) {
+                System.out.println("Gir: G");
+                String sqlStr = "insert into servisler values(" + i++ + ", '" + scan.nextLine() + "', " + 1 + ")";
+                System.out.println(sqlStr);
+                ResultSet rs = st.executeQuery(sqlStr);
+            }
+        }
+        catch(Exception ex){ex.printStackTrace();}
 
     }
 
