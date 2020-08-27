@@ -26,6 +26,9 @@ public class Main extends JFrame{
     static JTable tablo;
     static HastaEkrani he;
     static JTextField degerGirmeYeri2;
+    static String[] servisler;
+    static String servis;
+    static JComboBox servisListesi;
 
 
 
@@ -213,6 +216,34 @@ public class Main extends JFrame{
 
     static public void hastaEkle() {
 
+        try {
+            //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
+            Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
+            Statement st = con.createStatement();
+            String sqlStr = "SELECT max(servis_id) FROM servisler";
+            System.out.println(sqlStr);
+            ResultSet rs = st.executeQuery(sqlStr);
+            rs.next();
+            int size = rs.getInt(1) + 1;
+            servisler = new String[size];
+
+            sqlStr = "select * from servisler";
+            System.out.println(sqlStr);
+            rs = st.executeQuery(sqlStr);
+
+            int index = 0;
+
+            while(rs.next()){
+                servisler[index++] = rs.getString(2);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+
+
         JDialog hastaEklemeEkrani = new JDialog(frame, "Hasta Ekle", true);
         hastaEklemeEkrani.setSize(1000, 600);
         hastaEklemeEkrani.add(new JLabel("Lütfen eklemek istediğiniz hastanın bilgilerini giriniz\n"));
@@ -223,7 +254,7 @@ public class Main extends JFrame{
         JTextField yatısTarihiYeri = new JTextField();
         JTextField protokolNoYeri = new JTextField();
         JTextField doktorYeri = new JTextField();
-        JTextField servisYeri = new JTextField();
+
         kadin = new JRadioButton("Kadın");
         erkek = new JRadioButton("Erkek");
         hastaEklemeEkrani.add(new JLabel("Ad: "));
@@ -241,8 +272,17 @@ public class Main extends JFrame{
         hastaEklemeEkrani.add(protokolNoYeri);
         hastaEklemeEkrani.add(new JLabel("Doktor: "));
         hastaEklemeEkrani.add(doktorYeri);
+
+
         hastaEklemeEkrani.add(new JLabel("Servis: "));
-        hastaEklemeEkrani.add(servisYeri);
+        servisListesi = new JComboBox(servisler);
+        servisListesi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                servis = servisler[servisListesi.getSelectedIndex()];
+            }
+        });
+        hastaEklemeEkrani.add(servisListesi);
 
 
 
@@ -256,7 +296,7 @@ public class Main extends JFrame{
                     String yt = yatısTarihiYeri.getText();
                     String dr = doktorYeri.getText();
                     String pr = protokolNoYeri.getText();
-                    String ser = servisYeri.getText();
+                    //String ser = servisYeri.getText();
 
                     //ilk tarihi formatlama
                     Scanner scan = new Scanner(dt);
@@ -288,7 +328,7 @@ public class Main extends JFrame{
                     Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
                     Statement st = con.createStatement();
                     String sqlStr = "insert into Hastalar values('" + isim + "', '" + soyisim + "', '" + dogumTarihi
-                            + "', " + cinsiyet + ", '" + yatmaTarihi + "', " + pr + ", '" + dr + "', '" + ser + "')";
+                            + "', " + cinsiyet + ", '" + yatmaTarihi + "', " + pr + ", '" + dr + "', '" + servis + "')";
                     System.out.println(sqlStr);
                     ResultSet rs = st.executeQuery(sqlStr);
 
