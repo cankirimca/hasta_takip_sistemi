@@ -27,7 +27,7 @@ public class Main extends JFrame{
     static HastaEkrani he;
     static JTextField degerGirmeYeri2;
     static String[] servisler;
-    static String servis;
+    static int servisId;
     static JComboBox servisListesi;
 
 
@@ -80,7 +80,7 @@ public class Main extends JFrame{
                         frame.getContentPane().removeAll();
                         anaEkran = new JPanel();
                         anaEkran.setLayout(new BorderLayout());
-                        ht = new HastaTablosu();
+                        ht = new HastaTablosu(servisler);
                         tablo = ht.tabloOlustur();
                         tablo.setCellSelectionEnabled(true);
                         tablo.getSelectionModel().addListSelectionListener(new HastaListesiListener());
@@ -215,35 +215,6 @@ public class Main extends JFrame{
     }
 
     static public void hastaEkle() {
-
-        try {
-            //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
-            Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
-            Statement st = con.createStatement();
-            String sqlStr = "SELECT max(servis_id) FROM servisler";
-            System.out.println(sqlStr);
-            ResultSet rs = st.executeQuery(sqlStr);
-            rs.next();
-            int size = rs.getInt(1) + 1;
-            servisler = new String[size];
-
-            sqlStr = "select * from servisler";
-            System.out.println(sqlStr);
-            rs = st.executeQuery(sqlStr);
-
-            int index = 0;
-
-            while(rs.next()){
-                servisler[index++] = rs.getString(2);
-            }
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-
-
-
         JDialog hastaEklemeEkrani = new JDialog(frame, "Hasta Ekle", true);
         hastaEklemeEkrani.setSize(1000, 600);
         hastaEklemeEkrani.add(new JLabel("Lütfen eklemek istediğiniz hastanın bilgilerini giriniz\n"));
@@ -279,7 +250,7 @@ public class Main extends JFrame{
         servisListesi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                servis = servisler[servisListesi.getSelectedIndex()];
+                servisId = servisListesi.getSelectedIndex();
             }
         });
         hastaEklemeEkrani.add(servisListesi);
@@ -328,13 +299,13 @@ public class Main extends JFrame{
                     Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
                     Statement st = con.createStatement();
                     String sqlStr = "insert into Hastalar values('" + isim + "', '" + soyisim + "', '" + dogumTarihi
-                            + "', " + cinsiyet + ", '" + yatmaTarihi + "', " + pr + ", '" + dr + "', '" + servis + "')";
+                            + "', " + cinsiyet + ", '" + yatmaTarihi + "', " + pr + ", '" + dr + "', '" + servisId + "')";
                     System.out.println(sqlStr);
                     ResultSet rs = st.executeQuery(sqlStr);
 
                     //ht = new HastaTablosu();
                     hastaEklemeEkrani.setVisible(false);
-                    ht = new HastaTablosu();
+                    ht = new HastaTablosu(servisler);
                     frame.getContentPane().remove(anaEkran);
                     anaEkran = new JPanel();
                     anaEkran.setLayout(new BorderLayout());
@@ -361,8 +332,35 @@ public class Main extends JFrame{
 
     public static void main(String[] args) {
 
+        try {
+            //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
+            Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
+            Statement st = con.createStatement();
+            String sqlStr = "SELECT max(servis_id) FROM servisler";
+            System.out.println(sqlStr);
+            ResultSet rs = st.executeQuery(sqlStr);
+            rs.next();
+            int size = rs.getInt(1) + 1;
+            servisler = new String[size];
+
+            sqlStr = "select * from servisler";
+            System.out.println(sqlStr);
+            rs = st.executeQuery(sqlStr);
+
+            int index = 0;
+
+            while(rs.next()){
+                servisler[index++] = rs.getString(2);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+
         System.out.println("bu bir programdır");
-        ht = new HastaTablosu();
+        ht = new HastaTablosu(servisler);
         frame = new JFrame("Hasta Takip");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000,600);

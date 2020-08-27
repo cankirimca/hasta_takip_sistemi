@@ -20,12 +20,14 @@ public class HastaTablosu {
     ArrayList<Hasta> hastalar;
     int hastaSayisi;
     JTable tablo;
+    String[] sList;
 
-    public HastaTablosu(){
+    public HastaTablosu(String[] servisListesi){
         //hasta yaşını hesaplamak için bugünün tarihine erişme
         LocalDate now = LocalDate.now(); //gets localDate
         hastaSayisi = 0;
         hastalar = new ArrayList<Hasta>();
+        sList = servisListesi;
 
         try{
             //veritabanı ile bağlantı sağlama
@@ -46,7 +48,7 @@ public class HastaTablosu {
                 Date yatmaTarihi = rs.getDate(5);
                 int protokolNo = rs.getInt(6);
                 String doktor = rs.getString(7);
-                String servis = rs.getString(8);
+                String servis = servisListesi[rs.getInt(8)];
                 Hasta.Cinsiyet cinsiyet;
 
                 //ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -103,8 +105,8 @@ public class HastaTablosu {
     }
 
     public static void main(String[] args) {
-        HastaTablosu ht = new HastaTablosu();
-        ht.tabloOlustur();
+        //HastaTablosu ht = new HastaTablosu();
+       // ht.tabloOlustur();
 
         try {
             //veritabanı ile bağlantı sağlama ve hasta bilgilerini kaydetme
