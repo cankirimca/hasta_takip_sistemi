@@ -18,14 +18,16 @@ public class Hasta {
     private String servis;
     private int yas;
     private int protokolNo;
+    private int tcNo;
     private Cinsiyet cinsiyet;
     private Date yatmaTarihi;
     private ArrayList<Integer> nabiz;
     private ArrayList<Integer> buyukTansiyon;
     private ArrayList<Integer> kucukTansiyon;
     private ArrayList<Double> ates;
+    private boolean gunubirlik;
 
-    public Hasta(String ad, String soyad, int yas, Cinsiyet cinsiyet, Date yatmaTarihi, int protokolNo, String doktor, String servis)
+    public Hasta(String ad, String soyad, int yas, Cinsiyet cinsiyet, Date yatmaTarihi, int protokolNo, String doktor, String servis, int tcNo, boolean gunubirlik)
     {
         this.ad = ad;
         this.soyad = soyad;
@@ -39,6 +41,8 @@ public class Hasta {
         this.doktor = doktor;
         this.servis = servis;
         this.protokolNo = protokolNo;
+        this.tcNo = tcNo;
+        this.gunubirlik = gunubirlik;
     }
 
     public String getSoyad() {
@@ -49,12 +53,16 @@ public class Hasta {
         return protokolNo;
     }
 
-    public String getDoktor() {
+    public String getDoktorId() {
         return doktor;
     }
 
     public String getServis() {
         return servis;
+    }
+
+    public String getDoktor() {
+        return doktor;
     }
 
     public String getAd() {
@@ -137,6 +145,14 @@ public class Hasta {
         this.servis = servis;
     }
 
+    public int getTcNo() {
+        return tcNo;
+    }
+
+    public void setTcNo(int tcNo) {
+        this.tcNo = tcNo;
+    }
+
     public String toString(){
         return ad + ", " + soyad + ", " + yas + ",  " + cinsiyet + ", " + yatmaTarihi;
     }
@@ -147,12 +163,14 @@ public class Hasta {
         //System.out.println(df.format(date));
         //Hasta hasta1 = new Hasta("Ahmet", "Sütçüoğlu", 44, Cinsiyet.ERKEK, new Date(2020,11,12));
         //System.out.println(hasta1.getYatmaTarihi());
-        LocalDate d = LocalDate.now();
+        //LocalDate d = LocalDate.now();
         Date e = new Date();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM");
-        System.out.println(dtf.format(LocalDateTime.now()));
+        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM");
+        //System.out.println(dtf.format(LocalDateTime.now()));
         //System.out.println(e);
+
     }
 }
+
 
 
