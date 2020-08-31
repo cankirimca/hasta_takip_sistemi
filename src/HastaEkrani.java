@@ -35,6 +35,8 @@ public class HastaEkrani implements MouseListener {
     Hasta gosterilecekHasta;
     JTextField degerGirmeYeri, degerGirmeYeri2;
     JButton geriButonu, hastaSilmeButonu, olcumEklemeButonu;
+    Statement st;
+    int gridCells;
 
 
     //tablo ve grafikler için ölçülecek değerlerin depolandığı listeler
@@ -147,11 +149,12 @@ public class HastaEkrani implements MouseListener {
         hastaEkrani.add(hastaBilgileri, BorderLayout.NORTH);
         hastaEkrani.add(new JScrollPane(degerTablosuOlustur()), BorderLayout.CENTER);
         JPanel butonPaneli = new JPanel();
-        butonPaneli.setLayout(new BorderLayout());
+        butonPaneli.setLayout(new GridLayout(4,1));
 
-        butonPaneli.add(olcumEklemeButonu, BorderLayout.CENTER);
-        butonPaneli.add(hastaSilmeButonu, BorderLayout.NORTH);
-        butonPaneli.add(geriButonu, BorderLayout.SOUTH);
+        butonPaneli.add(olcumEklemeButonu, 0);
+        butonPaneli.add(hastaSilmeButonu, 1);
+        butonPaneli.add(notEklemeButonuOlustur(), 2);
+        butonPaneli.add(geriButonu, 3);
         grafikPaneli.add(butonPaneli, 7);
 
 
@@ -695,6 +698,95 @@ public class HastaEkrani implements MouseListener {
         catch(Exception ex){ex.printStackTrace();}
     }
 
+    public JDialog notEklemeEkraniOlustur(){
+        JDialog sonEkran = new JDialog();
+        sonEkran.setSize(500, 300);
+        JPanel notEkrani = new JPanel();
+        gridCells = 2;
+
+        ResultSet rs3 = null;
+        st = null;
+        String sqlStr3;
+
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
+            Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
+            st = con.createStatement();
+            sqlStr3 = "select * from HASTA_NOTLARI where protokol_no = " + gosterilecekHasta.getProtokolNo();
+            rs3 = st.executeQuery(sqlStr3);
+        }catch(Exception ex){ex.printStackTrace();}
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        JTextField notYaz = new JTextField(dtf.format(LocalDateTime.now()) + ": ");
+        JButton ekle = new JButton("Not Ekle");
+
+
+        try {
+            //bu döngü not sayısını belirlemek için
+            while (rs3.next()) {
+                gridCells++;
+            }
+
+            notEkrani.setLayout(new GridLayout(gridCells,1));
+            //yeni sorgu
+            sqlStr3 = "select * from HASTA_NOTLARI where protokol_no = " + gosterilecekHasta.getProtokolNo();
+            rs3 = st.executeQuery(sqlStr3);
+
+            int index = 0;
+            while (rs3.next()) {
+                notEkrani.add(new JLabel(rs3.getString(2)), index++);
+            }
+            notEkrani.add(notYaz, gridCells - 2);
+            notEkrani.add(ekle, gridCells - 1);
+            ekle.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    gridCells++;
+
+                    try {
+                        sonEkran.getContentPane().removeAll();
+                        notEkrani.setLayout(new GridLayout(gridCells, 1));
+                        notEkrani.removeAll();
+                        String sqlStr4 = "insert into HASTA_NOTLARI values( " + gosterilecekHasta.getProtokolNo() + ", '" + notYaz.getText() + "')";
+                        st.executeQuery(sqlStr4);
+
+                        final String sqlStr3 = "select * from HASTA_NOTLARI where protokol_no = " + gosterilecekHasta.getProtokolNo();
+                        final ResultSet rs3 = st.executeQuery(sqlStr3);
+
+                        int index = 0;
+                        while (rs3.next()) {
+                            notEkrani.add(new JLabel(rs3.getString(2)), index++);
+                        }
+                        notEkrani.add(notYaz, gridCells - 2);
+                        notEkrani.add(ekle, gridCells - 1);
+
+                        sonEkran.add(notEkrani);
+                        sonEkran.revalidate();
+                        sonEkran.repaint();
+                    }catch(Exception ex){ex.printStackTrace();}
+                }
+            });
+            sonEkran.add(notEkrani);
+            sonEkran.setResizable(true);
+        }catch(Exception e){e.printStackTrace();}
+
+
+        return sonEkran;
+    }
+
+    public JButton notEklemeButonuOlustur(){
+        JButton buton = new JButton("Not Ekle");
+        buton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog notEkrani = notEklemeEkraniOlustur();
+                notEkrani.setVisible(true);
+            }
+        });
+        return buton;
+    }
+
     public JButton olcumEklemeButonuOlustur(){
         JButton ekle = new JButton("Yeni Ölçüm Kaydet");
 
@@ -807,7 +899,7 @@ public class HastaEkrani implements MouseListener {
                     String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
                     Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
                     Statement st = con.createStatement();
-                    String sqlStr = "delete from Hastalar where protokol_no = " + gosterilecekHasta.getProtokolNo();
+                    String sqlStr = "delete from HASTA_GELISLERI where protokol_no = " + gosterilecekHasta.getProtokolNo();
                     System.out.println(sqlStr);
                     ResultSet rs = st.executeQuery(sqlStr);
                 }

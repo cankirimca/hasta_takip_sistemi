@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.*;
 import java.time.*;
@@ -81,7 +82,7 @@ public class Main extends JFrame {
                         String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
                         Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
                         Statement st = con.createStatement();
-                        String sqlStr = "delete from Hastalar where protokol_no = " + he.gosterilecekHasta.getProtokolNo();
+                        String sqlStr = "delete from HASTA_GELISLERI where protokol_no = " + he.gosterilecekHasta.getProtokolNo();
                         System.out.println(sqlStr);
                         ResultSet rs = st.executeQuery(sqlStr);
 
@@ -226,6 +227,7 @@ public class Main extends JFrame {
         }
     }
 
+
     public static void hastaEkle() {
         kayitliHasta = false;
 
@@ -330,7 +332,7 @@ public class Main extends JFrame {
                     });
 
                     doktorListesi = new JComboBox(doktorlar);
-                    servisListesi.addActionListener(new ActionListener() {
+                    doktorListesi.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             doktorId = doktorListesi.getSelectedIndex();
