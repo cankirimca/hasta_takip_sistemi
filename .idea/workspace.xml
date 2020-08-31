@@ -6,26 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="be1b7068-978f-494f-b50c-80d3a45cec12" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Hasta.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Hasta.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/HastaEkrani$1$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/HastaEkrani$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/HastaEkrani$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/HastaEkrani$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/HastaEkrani$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/HastaEkrani$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/HastaEkrani.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/HastaEkrani.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$1$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$1$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$3$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$3$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$3$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$3$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main$HastaListesiListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HastaTakipSistemi/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hasta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hasta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HastaEkrani.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HastaEkrani.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
@@ -38,23 +18,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8380">
-              <caret line="50" selection-start-line="50" selection-end-line="50" />
+            <state relative-caret-position="-393">
+              <caret line="334" column="74" lean-forward="true" selection-start-line="334" selection-start-column="74" selection-end-line="334" selection-end-column="74" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#15072#15073#0" expanded="true" />
+                <element signature="e#15171#15172#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HastaEkrani.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="748" column="70" selection-start-line="748" selection-start-column="70" selection-end-line="748" selection-end-column="70" />
+            <state relative-caret-position="165">
+              <caret line="71" column="72" selection-start-line="71" selection-start-column="69" selection-end-line="71" selection-end-column="72" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -77,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HastaTablosu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1156">
-              <caret line="68" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="148">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -133,6 +115,10 @@
       <find>doktorlar[</find>
       <find>random</find>
       <find>getselectedin</find>
+      <find>olcumekleme</find>
+      <find>sil</find>
+      <find>hastakaydisil</find>
+      <find>doktorId</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -147,16 +133,16 @@
         <option value="$PROJECT_DIR$/src/HastaGrafigi.java" />
         <option value="$PROJECT_DIR$/src/HastaTablosu.java" />
         <option value="$PROJECT_DIR$/src/Hasta.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/HastaEkrani.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="994" />
-    <option name="height" value="565" />
+    <option name="x" value="-7" />
+    <option name="y" value="-7" />
+    <option name="width" value="795" />
+    <option name="height" value="452" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -185,7 +171,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1598877100609" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1598881576610" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
@@ -263,10 +249,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.093959734" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11326861" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -276,14 +262,14 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.3298731" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.53959733" visible="true" weight="0.18413597" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.539644" visible="true" weight="0.14994232" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48724833" weight="0.3512748" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.4604027" side_tool="true" visible="true" weight="0.18413597" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.460356" side_tool="true" visible="true" weight="0.14994232" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49328858" weight="0.3186969" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -296,6 +282,16 @@
     </layout>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/HastaEkrani.java</url>
+          <line>901</line>
+          <properties />
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="kayitliHasta" language="JAVA" />
@@ -355,30 +351,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8380">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/HastaGrafigi.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
           <caret line="158" column="1" selection-start-line="158" selection-start-column="1" selection-end-line="158" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/HastaTablosu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -399,10 +375,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HastaEkrani.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="748" column="70" selection-start-line="748" selection-start-column="70" selection-end-line="748" selection-end-column="70" />
+        <state relative-caret-position="165">
+          <caret line="71" column="72" selection-start-line="71" selection-start-column="69" selection-end-line="71" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HastaTablosu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-393">
+          <caret line="334" column="74" lean-forward="true" selection-start-line="334" selection-start-column="74" selection-end-line="334" selection-end-column="74" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#15072#15073#0" expanded="true" />
+            <element signature="e#15171#15172#0" expanded="true" />
           </folding>
         </state>
       </provider>

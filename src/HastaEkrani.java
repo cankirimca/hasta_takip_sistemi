@@ -899,7 +899,7 @@ public class HastaEkrani implements MouseListener {
                     String url = "jdbc:oracle:thin:@localhost:1522/XEPDB1";
                     Connection con = DriverManager.getConnection(url, "sys as sysdba", "orclhst");
                     Statement st = con.createStatement();
-                    String sqlStr = "delete from Hastalar where protokol_no = " + gosterilecekHasta.getProtokolNo();
+                    String sqlStr = "delete from HASTA_GELISLERI where protokol_no = " + gosterilecekHasta.getProtokolNo();
                     System.out.println(sqlStr);
                     ResultSet rs = st.executeQuery(sqlStr);
                 }
