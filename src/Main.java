@@ -355,7 +355,7 @@ public class Main extends JFrame {
                             try {
                                 String isim, soyisim, dt, yt;
                                 int drId;
-                                int tc;
+                                long tc;
 
                                 if (!kayitliHasta)
                                     isim = adYeri.getText();
@@ -375,7 +375,7 @@ public class Main extends JFrame {
                                 }
 
 
-                                tc = Integer.parseInt(tcNoYeri2.getText());
+                                tc = Long.parseLong(tcNoYeri2.getText());
 
 
                                 yt = yatısTarihiYeri.getText();
