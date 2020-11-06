@@ -18,7 +18,7 @@ public class Hasta {
     private String servis;
     private int yas;
     private int protokolNo;
-    private int tcNo;
+    private long tcNo;
     private Cinsiyet cinsiyet;
     private Date yatmaTarihi;
     private ArrayList<Integer> nabiz;
@@ -27,7 +27,7 @@ public class Hasta {
     private ArrayList<Double> ates;
     private boolean gunubirlik;
 
-    public Hasta(String ad, String soyad, int yas, Cinsiyet cinsiyet, Date yatmaTarihi, int protokolNo, String doktor, String servis, int tcNo, boolean gunubirlik)
+    public Hasta(String ad, String soyad, int yas, Cinsiyet cinsiyet, Date yatmaTarihi, int protokolNo, String doktor, String servis, long tcNo, boolean gunubirlik)
     {
         this.ad = ad;
         this.soyad = soyad;
@@ -145,11 +145,11 @@ public class Hasta {
         this.servis = servis;
     }
 
-    public int getTcNo() {
+    public long getTcNo() {
         return tcNo;
     }
 
-    public void setTcNo(int tcNo) {
+    public void setTcNo(long tcNo) {
         this.tcNo = tcNo;
     }
 

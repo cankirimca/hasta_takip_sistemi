@@ -58,7 +58,7 @@ public class HastaTablosu {
                 else{
                     cinsiyet = Hasta.Cinsiyet.KADIN;
                 }
-                int tcNo = rs2.getInt(6);
+                long tcNo = rs2.getLong(6);
 
                 Period diff = Period.between(dob, now);
                 int hastaYasi = diff.getYears();
